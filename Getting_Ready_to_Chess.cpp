@@ -34,9 +34,17 @@ public:
     {
         return y;
     }
+    std::string GetName()
+    {
+        return name;
+    }
     bool Danger(int i, int j) override
     {
-        return true;
+        if (abs(x - i) <= 1 && abs(y - j) <= 1)
+        {
+            return true;
+        }
+        return false;
     }
 };
 
@@ -60,9 +68,17 @@ public:
     {
         return y;
     }
+    std::string GetName()
+    {
+        return name;
+    }
     bool Danger(int i, int j) override
     {
-        return true;
+        if (x == i || y == j || (x - y) == (i - j))
+        {
+            return true;
+        }
+        return false;
     }
 };
 
@@ -86,9 +102,17 @@ public:
     {
         return y;
     }
+    std::string GetName()
+    {
+        return name;
+    }
     bool Danger(int i, int j) override
     {
-        return true;
+        if (x == i || y == j)
+        {
+            return true;
+        }
+        return false;
     }
 };
 
@@ -112,9 +136,17 @@ public:
     {
         return y;
     }
+    std::string GetName()
+    {
+        return name;
+    }
     bool Danger(int i, int j) override
     {
-        return true;
+        if ((x - y) == (i - j))
+        {
+            return true;
+        }
+        return false;
     }
 };
 
@@ -138,9 +170,17 @@ public:
     {
         return y;
     }
+    std::string GetName()
+    {
+        return name;
+    }
     bool Danger(int i, int j) override
     {
-        return true;
+        if (((i - x == 1 || x - i == 1) && (j - y == 2 || y - j == 2)) || ((i - x == 2 || x - i == 2) && (j - y == 1 || y - j == 1)))
+        {
+            return true;
+        }
+        return false;
     }
 };
 
@@ -191,16 +231,16 @@ int main()
         }
         std::cout << figure << " " << x << " " << y << std::endl;
     }
-    for (int i = 0; i < figure_array.size(); i++)
+    for (int i = 0; i < figure_array.size() ; i++)
     {
-        for (int j = 0; j < figure_array.size(); j++)
+        for (int j = 0; j < figure_array.size() ; j++)
         {
             if (i != j)
             {
                 bool check = figure_array[i]->Danger(figure_array[j]->GetX(), figure_array[j]->GetY());
                 if (check)
                 {
-                    std::cout << figure_array[i].
+                    std::cout << figure_array[i]->GetName() << " -> " << figure_array[j]->GetName() << std::endl;
                 }
             }
         }
