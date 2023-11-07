@@ -52,6 +52,11 @@ void ReadFromFile(std::vector<Figure*>& figure_array, const std::string& nameFil
     }
 }
 
+void PrintField()
+{
+
+}
+
 int main()
 {
     std::string nameFile = "Koordinates.txt";
