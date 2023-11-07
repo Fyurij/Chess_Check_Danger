@@ -4,202 +4,21 @@
 #include <string>
 #include <exception>
 #include <map>
+#include "Figures.h"
 
-class Figure
+void ReadFromFile(std::vector<Figure*>& figure_array, const std::string& nameFile)
 {
-public:
-    virtual int GetX() = 0;
-    virtual int GetY() = 0;
-    virtual std::string GetName() = 0;
-    virtual bool Danger(int i, int j) = 0;
-};
-
-class King : public Figure
-{
-private:
-    int x;
-    int y;
-    std::string name;
-public:
-    King(int x_, int y_, std::string name_)
-        :x(x_)
-        , y(y_)
-        , name(name_)
-    {}
-    int GetX() override
-    {
-        return x;
-    }
-    int GetY() override
-    {
-        return y;
-    }
-    std::string GetName()
-    {
-        return name;
-    }
-    bool Danger(int i, int j) override
-    {
-        if (abs(x - i) <= 1 && abs(y - j) <= 1)
-        {
-            return true;
-        }
-        return false;
-    }
-};
-
-class Queen : public Figure
-{
-private:
-    int x;
-    int y;
-    std::string name;
-public:
-    Queen(int x_, int y_, std::string name_)
-        :x(x_)
-        , y(y_)
-        , name(name_)
-    {}
-    int GetX() override
-    {
-        return x;
-    }
-    int GetY() override
-    {
-        return y;
-    }
-    std::string GetName()
-    {
-        return name;
-    }
-    bool Danger(int i, int j) override
-    {
-        if (x == i || y == j || (x - y) == (i - j))
-        {
-            return true;
-        }
-        return false;
-    }
-};
-
-class Rook : public Figure
-{
-private:
-    int x;
-    int y;
-    std::string name;
-public:
-    Rook(int x_, int y_, std::string name_)
-        :x(x_)
-        , y(y_)
-        , name(name_)
-    {}
-    int GetX() override
-    {
-        return x;
-    }
-    int GetY() override
-    {
-        return y;
-    }
-    std::string GetName()
-    {
-        return name;
-    }
-    bool Danger(int i, int j) override
-    {
-        if (x == i || y == j)
-        {
-            return true;
-        }
-        return false;
-    }
-};
-
-class Bishop : public Figure
-{
-private:
-    int x;
-    int y;
-    std::string name;
-public:
-    Bishop(int x_, int y_, std::string name_)
-        :x(x_)
-        , y(y_)
-        , name(name_)
-    {}
-    int GetX() override
-    {
-        return x;
-    }
-    int GetY() override
-    {
-        return y;
-    }
-    std::string GetName()
-    {
-        return name;
-    }
-    bool Danger(int i, int j) override
-    {
-        if ((x - y) == (i - j))
-        {
-            return true;
-        }
-        return false;
-    }
-};
-
-class Knight : public Figure
-{
-private:
-    int x;
-    int y;
-    std::string name;
-public:
-    Knight(int x_, int y_, std::string name_)
-        :x(x_)
-        , y(y_)
-        , name(name_)
-    {}
-    int GetX() override
-    {
-        return x;
-    }
-    int GetY() override
-    {
-        return y;
-    }
-    std::string GetName()
-    {
-        return name;
-    }
-    bool Danger(int i, int j) override
-    {
-        if (((i - x == 1 || x - i == 1) && (j - y == 2 || y - j == 2)) || ((i - x == 2 || x - i == 2) && (j - y == 1 || y - j == 1)))
-        {
-            return true;
-        }
-        return false;
-    }
-};
-
-int main()
-{
-    std::ifstream koordinates("Koordinates.txt");
-    if (!koordinates.is_open())
-    {
-        std::cout << "File is not opened" << std::endl;
-        return 0;
-    }
     std::string figure;
     int x;
     int y;
-    std::vector<Figure*> figure_array;
+    std::ifstream koordinates(nameFile);
+    if (!koordinates.is_open())
+    {
+        throw std::invalid_argument("File is not opened");
+    }
     while (!koordinates.eof())
     {
         koordinates >> figure >> x >> y;
-        
         if (figure == "king")
         {
             Figure* character = new King(x, y, figure);
@@ -231,9 +50,24 @@ int main()
         }
         std::cout << figure << " " << x << " " << y << std::endl;
     }
-    for (int i = 0; i < figure_array.size() ; i++)
+}
+
+int main()
+{
+    std::string nameFile = "Koordinates.txt";
+    std::vector<Figure*> figure_array;
+    try
     {
-        for (int j = 0; j < figure_array.size() ; j++)
+        ReadFromFile(figure_array, nameFile);
+    }
+    catch(std::invalid_argument& ex)
+    {
+        std::cout << ex.what() << std::endl;
+        return 0;
+    }
+    for (int i = 0; i < figure_array.size(); i++)
+    {
+        for (int j = 0; j < figure_array.size(); j++)
         {
             if (i != j)
             {
@@ -245,4 +79,5 @@ int main()
             }
         }
     }
+    return 0;
 }
