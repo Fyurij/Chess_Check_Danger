@@ -6,22 +6,19 @@
 #include <map>
 #include "Figures.h"
 
-int main()
+void ReadFromFile(std::vector<Figure*>& figure_array, const std::string& nameFile)
 {
-    std::ifstream koordinates("Koordinates.txt");
-    if (!koordinates.is_open())
-    {
-        std::cout << "File is not opened" << std::endl;
-        return 0;
-    }
     std::string figure;
     int x;
     int y;
-    std::vector<Figure*> figure_array;
+    std::ifstream koordinates(nameFile);
+    if (!koordinates.is_open())
+    {
+        throw std::invalid_argument("File is not opened");
+    }
     while (!koordinates.eof())
     {
         koordinates >> figure >> x >> y;
-
         if (figure == "king")
         {
             Figure* character = new King(x, y, figure);
@@ -53,6 +50,21 @@ int main()
         }
         std::cout << figure << " " << x << " " << y << std::endl;
     }
+}
+
+int main()
+{
+    std::string nameFile = "Koordinates.txt";
+    std::vector<Figure*> figure_array;
+    try
+    {
+        ReadFromFile(figure_array, nameFile);
+    }
+    catch(std::invalid_argument& ex)
+    {
+        std::cout << ex.what() << std::endl;
+        return 0;
+    }
     for (int i = 0; i < figure_array.size(); i++)
     {
         for (int j = 0; j < figure_array.size(); j++)
@@ -67,4 +79,5 @@ int main()
             }
         }
     }
+    return 0;
 }

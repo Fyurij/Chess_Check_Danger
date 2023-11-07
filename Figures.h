@@ -5,7 +5,7 @@ class Figure
 public:
     virtual int GetX() = 0;
     virtual int GetY() = 0;
-    virtual std::string GetName() = 0;
+    virtual std::string& GetName() = 0;
     virtual bool Danger(int i, int j) = 0;
 };
 
@@ -16,14 +16,14 @@ private:
     int y;
     std::string name;
 public:
-    King(int x_, int y_, std::string name_)
+    King(int x_, int y_, const std::string& name_)
         :x(x_)
         , y(y_)
         , name(name_)
     {}
     int GetX() override;
     int GetY() override;
-    std::string GetName() override;
+    std::string& GetName() override;
     bool Danger(int i, int j) override;
 };
 
@@ -34,14 +34,14 @@ private:
     int y;
     std::string name;
 public:
-    Queen(int x_, int y_, std::string name_)
+    Queen(int x_, int y_, const std::string& name_)
         :x(x_)
         , y(y_)
         , name(name_)
     {}
     int GetX() override;
     int GetY() override;
-    std::string GetName() override;
+    std::string& GetName() override;
     bool Danger(int i, int j) override;
 };
 
@@ -52,14 +52,14 @@ private:
     int y;
     std::string name;
 public:
-    Rook(int x_, int y_, std::string name_)
+    Rook(int x_, int y_, const std::string& name_)
         :x(x_)
         , y(y_)
         , name(name_)
     {}
     int GetX() override;
     int GetY() override;
-    std::string GetName() override;
+    std::string& GetName() override;
     bool Danger(int i, int j) override;
 };
 
@@ -70,14 +70,14 @@ private:
     int y;
     std::string name;
 public:
-    Bishop(int x_, int y_, std::string name_)
+    Bishop(int x_, int y_, const std::string& name_)
         :x(x_)
         , y(y_)
         , name(name_)
     {}
     int GetX() override;
     int GetY() override;
-    std::string GetName() override;
+    std::string& GetName() override;
     bool Danger(int i, int j) override;
 };
 
@@ -88,13 +88,13 @@ private:
     int y;
     std::string name;
 public:
-    Knight(int x_, int y_, std::string name_)
+    Knight(int x_, int y_, const std::string& name_)
         :x(x_)
         , y(y_)
         , name(name_)
     {}
     int GetX() override;
     int GetY() override;
-    std::string GetName() override;
+    std::string& GetName() override;
     bool Danger(int i, int j) override;
 };
