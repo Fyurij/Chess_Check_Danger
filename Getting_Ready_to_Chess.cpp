@@ -52,9 +52,43 @@ void ReadFromFile(std::vector<Figure*>& figure_array, const std::string& nameFil
     }
 }
 
-void PrintField()
+void PrintField(std::vector<Figure*>& figure_array)
 {
+    std::vector<std::vector<char>> field(8, std::vector<char>(8, '.'));
+    for (int i = 0; i < figure_array.size(); i++)
+    {
+        field[figure_array[i]->GetY()][figure_array[i]->GetX()] = figure_array[i]->GetSymbol();
+    }
+    std::cout << "  A B C D E F G H  " << std::endl;
+    for (int i = 0; i < field.size(); i++)
+    {
+        std::cout << i + 1 << " ";
+        for (int j = 0; j < field[0].size(); j++)
+        {
+            std::cout << field[i][j] << " ";
+        }
+        std::cout << i + 1 << " ";
+        std::cout << std::endl;
+    }
+    std::cout << "  A B C D E F G H  " << std::endl;
+}
 
+void CheckDanger(std::vector<Figure*>& figure_array)
+{
+    for (int i = 0; i < figure_array.size(); i++)
+    {
+        for (int j = 0; j < figure_array.size(); j++)
+        {
+            if (i != j)
+            {
+                bool check = figure_array[i]->Danger(figure_array[j]->GetX(), figure_array[j]->GetY());
+                if (check)
+                {
+                    std::cout << figure_array[i]->GetName() << " -> " << figure_array[j]->GetName() << std::endl;
+                }
+            }
+        }
+    }
 }
 
 int main()
@@ -70,19 +104,7 @@ int main()
         std::cout << ex.what() << std::endl;
         return 0;
     }
-    for (int i = 0; i < figure_array.size(); i++)
-    {
-        for (int j = 0; j < figure_array.size(); j++)
-        {
-            if (i != j)
-            {
-                bool check = figure_array[i]->Danger(figure_array[j]->GetX(), figure_array[j]->GetY());
-                if (check)
-                {
-                    std::cout << figure_array[i]->GetName() << " -> " << figure_array[j]->GetName() << std::endl;
-                }
-            }
-        }
-    }
+    PrintField(figure_array);
+    CheckDanger(figure_array);
     return 0;
 }
