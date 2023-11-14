@@ -91,6 +91,14 @@ void CheckDanger(std::vector<Figure*>& figure_array)
     }
 }
 
+void Delete(std::vector<Figure*>& figure_array)
+{
+    for (int i = 0; i < figure_array.size(); i++)
+    {
+        delete figure_array[i];
+    }
+}
+
 int main()
 {
     std::string nameFile = "Koordinates.txt";
@@ -106,5 +114,6 @@ int main()
     }
     PrintField(figure_array);
     CheckDanger(figure_array);
+    Delete(figure_array);
     return 0;
 }
