@@ -6,6 +6,7 @@ public:
     virtual int GetX() = 0;
     virtual int GetY() = 0;
     virtual std::string& GetName() = 0;
+    virtual char GetSymbol() = 0;
     virtual bool Danger(int i, int j) = 0;
 };
 
@@ -24,6 +25,7 @@ public:
     int GetX() override;
     int GetY() override;
     std::string& GetName() override;
+    char GetSymbol() override;
     bool Danger(int i, int j) override;
 };
 
@@ -42,6 +44,7 @@ public:
     int GetX() override;
     int GetY() override;
     std::string& GetName() override;
+    char GetSymbol() override;
     bool Danger(int i, int j) override;
 };
 
@@ -60,6 +63,7 @@ public:
     int GetX() override;
     int GetY() override;
     std::string& GetName() override;
+    char GetSymbol() override;
     bool Danger(int i, int j) override;
 };
 
@@ -78,6 +82,7 @@ public:
     int GetX() override;
     int GetY() override;
     std::string& GetName() override;
+    char GetSymbol() override;
     bool Danger(int i, int j) override;
 };
 
@@ -96,5 +101,6 @@ public:
     int GetX() override;
     int GetY() override;
     std::string& GetName() override;
+    char GetSymbol() override;
     bool Danger(int i, int j) override;
 };

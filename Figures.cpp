@@ -14,6 +14,10 @@ std::string& King::GetName()
 {
     return name;
 }
+char King::GetSymbol()
+{
+    return 'K';
+}
 bool King::Danger(int i, int j)
 {
     return (abs(x - i) <= 1 && abs(y - j) <= 1);
@@ -23,7 +27,6 @@ int Queen::GetX()
 {
     return x;
 }
-
 int Queen::GetY()
 {
     return y;
@@ -31,6 +34,10 @@ int Queen::GetY()
 std::string& Queen::GetName()
 {
     return name;
+}
+char Queen::GetSymbol()
+{
+    return 'Q';
 }
 bool Queen::Danger(int i, int j)
 {
@@ -49,6 +56,10 @@ std::string& Rook::GetName()
 {
     return name;
 }
+char Rook::GetSymbol()
+{
+    return 'R';
+}
 bool Rook::Danger(int i, int j)
 {
     return (x == i || y == j);
@@ -66,6 +77,10 @@ std::string& Bishop::GetName()
 { 
     return name;
 }
+char Bishop::GetSymbol()
+{
+    return 'B';
+}
 bool Bishop::Danger(int i, int j)
 {
     return ((x - y) == (i - j));
@@ -82,6 +97,10 @@ int Knight::GetY()
 std::string& Knight::GetName()
 {
     return name;
+}
+char Knight::GetSymbol()
+{
+    return 'k';
 }
 bool Knight::Danger(int i, int j)
 {

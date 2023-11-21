@@ -52,19 +52,29 @@ void ReadFromFile(std::vector<Figure*>& figure_array, const std::string& nameFil
     }
 }
 
-int main()
+void PrintField(std::vector<Figure*>& figure_array)
 {
-    std::string nameFile = "Koordinates.txt";
-    std::vector<Figure*> figure_array;
-    try
+    std::vector<std::vector<char>> field(8, std::vector<char>(8, '.'));
+    for (int i = 0; i < figure_array.size(); i++)
     {
-        ReadFromFile(figure_array, nameFile);
+        field[figure_array[i]->GetY()][figure_array[i]->GetX()] = figure_array[i]->GetSymbol();
     }
-    catch(std::invalid_argument& ex)
+    std::cout << "  A B C D E F G H  " << std::endl;
+    for (int i = 0; i < field.size(); i++)
     {
-        std::cout << ex.what() << std::endl;
-        return 0;
+        std::cout << i + 1 << " ";
+        for (int j = 0; j < field[0].size(); j++)
+        {
+            std::cout << field[i][j] << " ";
+        }
+        std::cout << i + 1 << " ";
+        std::cout << std::endl;
     }
+    std::cout << "  A B C D E F G H  " << std::endl;
+}
+
+void CheckDanger(std::vector<Figure*>& figure_array)
+{
     for (int i = 0; i < figure_array.size(); i++)
     {
         for (int j = 0; j < figure_array.size(); j++)
@@ -79,5 +89,31 @@ int main()
             }
         }
     }
+}
+
+void Delete(std::vector<Figure*>& figure_array)
+{
+    for (int i = 0; i < figure_array.size(); i++)
+    {
+        delete figure_array[i];
+    }
+}
+
+int main()
+{
+    std::string nameFile = "Koordinates.txt";
+    std::vector<Figure*> figure_array;
+    try
+    {
+        ReadFromFile(figure_array, nameFile);
+    }
+    catch(std::invalid_argument& ex)
+    {
+        std::cout << ex.what() << std::endl;
+        return 0;
+    }
+    PrintField(figure_array);
+    CheckDanger(figure_array);
+    Delete(figure_array);
     return 0;
 }
